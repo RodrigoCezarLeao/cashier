@@ -1,0 +1,17 @@
+<div id="container">    
+
+    <button (click)="addNewProduct()">Adicionar Produto</button>
+
+    <table>
+        <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+        </tr>
+        <tr *ngFor="let prod of products">
+            <td><input type="text" [(ngModel)]="prod.name" (change)="saveProduct(prod)"/></td>
+            <td><input type="number" min="0.00" step="0.01" [(ngModel)]="prod.price" class="inputNumber" (change)="saveProductAndFormat(prod)"/></td>
+            <td><button (click)="deleteProduct(prod.id)">-</button></td>
+        </tr>
+    </table>        
+    
+</div>

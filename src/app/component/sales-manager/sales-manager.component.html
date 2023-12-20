@@ -1,0 +1,28 @@
+<div id="container">
+    <button (click)="includeProduct()">Adicionar Registro</button>
+
+    <br />
+
+    <table>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+        </tr>
+        <tr *ngFor="let cash of cashierProducts">
+            <td>                                            
+                <select [(ngModel)]="cash.product_id">
+                    <option *ngFor="let prod of products" [value]="prod.id">
+                        {{prod.name}}
+                    </option>
+                </select>
+            </td>
+            <td><input type="number" (change)="recalculateTotalCashier()" [(ngModel)]="cash.amount" min="0"/></td>
+            <td><input type="number" disabled [value]="cash.partial_value"/></td>
+        </tr>
+    </table>
+
+    <h3>Total R$: {{totalCashier}}</h3>
+
+    <button (click)="saveSale()">Registrar Venda</button>    
+</div>

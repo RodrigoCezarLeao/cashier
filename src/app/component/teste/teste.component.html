@@ -1,0 +1,29 @@
+<div class="container">
+    <span class="title">Data: {{formatDate(sales[0].idDate)}}</span>
+    <span class="title">Hora: {{formatHour(sales[0].idDate)}}</span>
+
+    <table>
+        <tr>
+            <th>Qtd</th>
+            <th>Produto</th>
+            <th>Preço Unit.</th>
+            <th>Total</th>
+        </tr>
+        
+        
+        <tr *ngFor="let s of sales">
+            <td>{{s.amount}}</td>
+            <td>{{getProductName(s.product_id)}}</td>
+            <td>R$ {{getFormatedProductValue(s.product_id)}}</td>
+            <td>R$ {{s.partial_value}}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3"></td>
+            <td>R$ {{sumTotalCashier(sales)}}</td>
+        </tr>
+        
+    </table>
+
+    <button (click)="close()">Fechar</button>
+</div>

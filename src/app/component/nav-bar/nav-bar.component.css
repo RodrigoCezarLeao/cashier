@@ -1,0 +1,22 @@
+div#container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #4D4B30;
+    height: 50px;
+}
+
+div#container a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3em;
+    border: 2px solid white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: white
+}
+
+div#container a:hover { 
+    background: #908660;
+}

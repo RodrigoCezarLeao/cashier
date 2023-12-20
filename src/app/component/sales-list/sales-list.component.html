@@ -1,0 +1,15 @@
+<div class="container">
+    <div>
+        <h3>Total Venda: R${{totalCashierDay}}</h3>
+
+        <div *ngFor="let sale of salesList" class="saleCard">
+            <app-modal-receipt [sales]="sale"></app-modal-receipt>                        
+            
+            <br />
+
+            <button (click)="deleteSales(sale)">Excluir</button>
+            <button (click)="openDialog(sale)">Visualizar</button>
+        </div>
+
+    </div>
+</div>
