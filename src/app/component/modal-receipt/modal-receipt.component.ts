@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { getProducts } from 'src/app/helpers/products';
 import { product } from 'src/app/interfaces/product';
 import { emptySale, sales } from 'src/app/interfaces/sales';
 import { Inject } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog'
+import { formatDate, formatHour } from 'src/app/helpers/general';
+import { HubService } from 'src/app/service/hub.service';
+import { getProductName, getProductPrice } from 'src/app/helpers/products';
 
 @Component({
   selector: 'app-modal-receipt',
@@ -11,69 +13,40 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog'
   styleUrls: ['./modal-receipt.component.css']
 })
 export class ModalReceiptComponent {
+
   @Input() sales: sales[] = [];
-  products: product[] = [];
+  products: product[] = [];  
   
-  
-  constructor(){
-    this.products = getProducts();    
+  constructor(private hubService: HubService){
+    this.hubService.getProducts().subscribe(products => {      
+      this.products = products;
+    });
   }
   
-  ngOnInit() {}
-
-  formatDate(date: string){  
-    let result = "";
-
-    const cDate = new Date(date);
-    const day = `${cDate.getDate().toString().padStart(2, '0')}`;
-    const month = `${(cDate.getMonth() + 1).toString().padStart(2, '0')}`;
-    const year = `${cDate.getFullYear().toString()}`;
-    const hour = `${cDate.getHours().toString().padStart(2, '0')}`;
-    const minute = `${cDate.getMinutes().toString().padStart(2, '0')}`;
-    
-    const fDate = `${day}/${month}/${year}`;
-    result = fDate;
-    
-    return result;
-}
-
-formatHour(date: string){  
-    let result = "";
-
-    const cDate = new Date(date);
-    const day = `${cDate.getDate().toString().padStart(2, '0')}`;
-    const month = `${(cDate.getMonth() + 1).toString().padStart(2, '0')}`;
-    const year = `${cDate.getFullYear().toString()}`;
-    const hour = `${cDate.getHours().toString().padStart(2, '0')}`;
-    const minute = `${cDate.getMinutes().toString().padStart(2, '0')}`;
-    
-    const fDate = `${hour}:${minute}`;
-    result = fDate;
-    
-    return result;
-}
-
-getProductName(product_id: number){
-  return this.products.find(x => x.id === Number(product_id))?.name;
-}
-
-getProductValue(product_id: number){
-  return this.products.find(x => x.id === Number(product_id))?.price;
-}
-
-getFormatedProductValue(product_id: number){
-  return `${this.products.find(x => x.id === Number(product_id))?.price.toFixed(2)}`;
-}
-
-sumTotalCashier(sales: sales[]){
-  let total = 0;
-
-  for(let s of sales){
-
-    total += s.amount * (this.getProductValue(s.product_id) ?? 0);
+  formatHour(arg0: string) {
+    return formatHour(arg0);
+  }
+  formatDate(arg0: string) {
+    return formatDate(arg0);
   }
 
-  return total.toFixed(2);
-}
+  getProductName(prodId: string){
+    return getProductName(prodId, this.products);
+  }
+  getProductPrice(prodId: string){
+    return getProductPrice(prodId, this.products)?.toFixed(2);
+  }
+
+  getProductTotalPrice(prodId: string, amount: number){
+    return ((getProductPrice(prodId, this.products) ?? 0) * amount).toFixed(2);
+  }
+
+  getTotalSaleValue(){
+    let total = 0;
+    for(let sale of this.sales){
+      total += (getProductPrice(sale.productId, this.products) ?? 0) * sale.amount;
+    }
+    return total.toFixed(2);
+  }
 
 }

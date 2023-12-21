@@ -1,7 +1,8 @@
 <div id="container">
-    <button (click)="includeProduct()">Adicionar Registro</button>
+    <button (click)="addRecord()">Adicionar Registro</button>
 
-    <br />
+
+    <h3>Total R$: {{totalCashier.toFixed(2)}}</h3>
 
     <table>
         <tr>
@@ -11,18 +12,18 @@
         </tr>
         <tr *ngFor="let cash of cashierProducts">
             <td>                                            
-                <select [(ngModel)]="cash.product_id">
+                <select [(ngModel)]="cash.productId">
                     <option *ngFor="let prod of products" [value]="prod.id">
                         {{prod.name}}
                     </option>
                 </select>
             </td>
-            <td><input type="number" (change)="recalculateTotalCashier()" [(ngModel)]="cash.amount" min="0"/></td>
-            <td><input type="number" disabled [value]="cash.partial_value"/></td>
+            <td><input type="number"  min="0" [(ngModel)]="cash.amount" (change)="updateTotalValueCashier()"/></td>
+            <td><input type="number" disabled [value]="updateTotalValueRecord(cash.idDate)"/></td>
         </tr>
     </table>
 
-    <h3>Total R$: {{totalCashier}}</h3>
+    
 
-    <button (click)="saveSale()">Registrar Venda</button>    
+    <button (click)="addNewSale()" [disabled]="!checkIfRecordCanBeSaved()">Registrar Venda</button>    
 </div>
