@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { getProducts } from 'src/app/helpers/products';
 import { addAndSaveSales } from 'src/app/helpers/sale';
 import { product } from 'src/app/interfaces/product';
-import { emptySale, sales } from 'src/app/interfaces/sales';
+import { createEmptySale, emptySale, sales } from 'src/app/interfaces/sales';
+import { HubService } from 'src/app/service/hub.service';
 
 @Component({
   selector: 'app-sales-manager',
@@ -12,62 +12,68 @@ import { emptySale, sales } from 'src/app/interfaces/sales';
 export class SalesManagerComponent {
   products: product[] = [];
   cashierProducts: sales[] = [];
-  totalCashier = "0.00";
+  totalCashier = 0;
   
-  constructor(){
-    this.products = getProducts();
+  constructor(private hubService: HubService){
+    this.hubService.getProducts().subscribe(products => {      
+      this.products = products;
+    });
+  }
+  
+  addRecord(){
+    this.cashierProducts.push(createEmptySale());
   }
 
-  includeProduct(){
-    const sale = {...emptySale};
-    this.cashierProducts.push(sale);
-    this.products = getProducts();
-  }
-
-  recalculateTotalCashier(){
-    const result = [];
-    let totalCashierValue = 0;
-
-    for(let item of this.cashierProducts){
-      const product = this.products.find(x => x.id === Number(item.product_id)) ?? {price: 0};
-      totalCashierValue += (item.amount * product.price);
-      item.partial_value = (item.amount * product.price).toFixed(2);
-      result.push(item);
+  updateTotalValueRecord(idDate: string){
+    let record = this.cashierProducts.find(x => x.idDate === idDate);
+    if (record && record.productId){
+      let product = this.products.find(x => x.id === record?.productId);
+      if (product && product.price > 0)
+        return (product.price * record.amount).toFixed(2);
     }
 
-    this.cashierProducts = result;
-    this.totalCashier = totalCashierValue.toFixed(2);
+    return "";
   }
 
-  saveSale(){
-    this.aggroupSameProducts();
+  updateTotalValueCashier(){
+    let total = 0;
+    for(let record of this.cashierProducts){
+      let product = this.products.find(x => x.id === record?.productId);
 
-    addAndSaveSales(this.cashierProducts);
-
-    alert("Venda registrada com sucesso!");
-    location.reload();
-  }
-
-  aggroupSameProducts(){
-    const result: sales[] = []
-    const idxDate = new Date().toISOString();
-
-    for (let idx of Array.from(new Set(this.cashierProducts.map(x => x.product_id)))){
-      const productsInCashier = this.cashierProducts.filter(x => x.product_id === idx && x.amount > 0);
-      if (productsInCashier.length === 0)
-        continue;
-
-      const totalProdAmount = productsInCashier.map(x => x.amount).reduce((a,b) => a+b);
-
-      result.push({
-        idDate: idxDate,
-        product_id: idx,
-        amount: totalProdAmount,
-        partial_value: (totalProdAmount * (this.products.find(x => x.id === Number(idx))?.price ?? 0)).toFixed(2),
-      });
-
+      if (record && record.productId && product && product.price > 0){
+        total += product.price * record.amount; 
+      }
     }
-
-    this.cashierProducts = result;
+    this.totalCashier = total;
   }
+
+  checkIfRecordCanBeSaved(){
+    if (this.cashierProducts.length > 0 && this.totalCashier > 0)  
+      return true;
+    return false;
+  }
+
+  addNewSale(){
+    // Aggroup duplicated products
+    let agg_records: sales[] = [];
+    let dateId = new Date().toISOString();
+    for(let record of this.cashierProducts){
+      if (!agg_records.find(x => x.productId === record.productId)){
+        let productRecords = this.cashierProducts.filter(x => x.productId === record.productId);
+        if (productRecords.length > 1)
+          record.amount = productRecords.map(x => x.amount).reduce((a, b) => a + b, 0);
+          
+        record.idDate = dateId;
+        agg_records.push(record);
+      }
+    }
+    
+    this.hubService.addSales(agg_records);
+    alert("Venda realizada com sucesso!");
+
+    // Reset screen
+    this.cashierProducts = [];
+    this.totalCashier = 0;
+  }
+  
 }

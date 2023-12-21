@@ -9,7 +9,6 @@ import { SalesListComponent } from './component/sales-list/sales-list.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalReceiptComponent } from './component/modal-receipt/modal-receipt.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TesteComponent } from './component/teste/teste.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
     SalesManagerComponent,
     SalesListComponent,
     ModalReceiptComponent,
-    TesteComponent,
     NavBarComponent
   ],
   imports: [

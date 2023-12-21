@@ -13,14 +13,14 @@
         
         <tr *ngFor="let s of sales">
             <td>{{s.amount}}</td>
-            <td>{{getProductName(s.product_id)}}</td>
-            <td>R$ {{getFormatedProductValue(s.product_id)}}</td>
-            <td>R$ {{s.partial_value}}</td>
+            <td>{{getProductName(s.productId)}}</td>
+            <td>{{getProductPrice(s.productId)}}</td>
+            <td>{{getProductTotalPrice(s.productId, s.amount)}}</td>
         </tr>
 
         <tr>
-            <td colspan="3"></td>
-            <td>R$ {{sumTotalCashier(sales)}}</td>
+            <td colspan="3">Total</td>
+            <td>{{getTotalSaleValue()}}</td>
         </tr>
         
     </table>

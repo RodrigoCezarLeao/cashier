@@ -1,13 +1,21 @@
+import { emptyProduct, product } from "./product";
+
 export interface sales {
     idDate: string,
-    product_id: number;
+    productId: string;
     amount: number;
-    partial_value: string;
 }
 
 export const emptySale = {
     idDate: "",
-    product_id: 0,
-    amount: 0,
-    partial_value: ""
+    productId: "",
+    amount: 0,    
 };
+
+export const createEmptySale = () => {
+    return {
+        idDate: new Date().toISOString(),
+        productId: "",
+        amount: 0,
+    };
+}
