@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { addAndSaveSales } from 'src/app/helpers/sale';
 import { product } from 'src/app/interfaces/product';
 import { createEmptySale, emptySale, sales } from 'src/app/interfaces/sales';
 import { HubService } from 'src/app/service/hub.service';
@@ -35,7 +34,7 @@ export class SalesManagerComponent {
     return "";
   }
 
-  updateTotalValueCashier(){
+  updateTotalValueCashier(){    
     let total = 0;
     for(let record of this.cashierProducts){
       let product = this.products.find(x => x.id === record?.productId);

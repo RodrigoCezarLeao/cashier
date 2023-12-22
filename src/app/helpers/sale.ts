@@ -1,39 +1,19 @@
 import { sales } from "../interfaces/sales"
 
+const CACHE_KEY = "sales-cashier";
 
-const sortSalesByIdDate = (sales: sales[]) => {
-    return sales.sort((a, b) => a.idDate > b.idDate ? -1 : 1);
+export const getCachedSales = () => {
+    return JSON.parse(localStorage.getItem(CACHE_KEY) ?? "[]");
 }
 
-export const getSales = () => {
-    const values = JSON.parse(window.localStorage.getItem('sales') ?? "[]");    
-    return sortSalesByIdDate(values);
-}
 
-export const getGroupedSalesIds = () => {
-    const sales = getSales();    
-    return Array.from(new Set(sales.map((x: sales) => x.idDate)));
-}
-
-export const addAndSaveSales = (sales: sales[]) =>{
-    const values = getSales();
-
-    if(values.length > 0){
-        window.localStorage.setItem('sales', JSON.stringify([...values, ...sales]));
-    }else if (values.length === 0)
-    {
-        window.localStorage.setItem('sales', JSON.stringify(sales));
+export const saveCacheSales = (sales: sales[]) => {
+    try{
+        localStorage.setItem(CACHE_KEY, JSON.stringify(sales));
+        return true;
+    }
+    catch(e){
+        console.log(e);
+        return false;
     }
 }
-
-export const saveSales = (sales: sales[]) => {
-    window.localStorage.setItem('sales', JSON.stringify(sales));
-}
-
-export const deleteAndSaveSales = (sales: sales[]) => {
-    const values = getSales();
-    const aux = values.filter(x => x.idDate !== sales?.[0].idDate);
-
-    return saveSales(aux);
-}
-
