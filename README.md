@@ -16,6 +16,7 @@ NodeJS - 18.10.0 +
 - translate
 - localStorage
 
-- Liberar botão 'atualizar' ao trocar nome ou preço de produto ao invés de só habilitar quando adicionar produto novo.
-- Erro de lista vazia 'sales-list'
+- Liberar botão 'atualizar' ao trocar nome ou preço de produto ao invés de só habilitar quando adicionar produto novo - OK.
 - Bloquear exclusão de produtos que já possuem registro em vendas.
+- Erro de lista vazia 'sales-list'
+- Excluir venda
