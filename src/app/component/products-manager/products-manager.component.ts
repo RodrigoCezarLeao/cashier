@@ -28,11 +28,13 @@ export class ProductsManagerComponent {
 
   update(){
     this.hubService.editProducts(this.products);
-    this.products_observer = this.products;
+    this.products_observer = [...this.products];
     alert("Produtos atualizados com sucesso!");
   }
 
   checkIfUpdateIsNeeded(){
+    console.log("🚀 ~ file: products-manager.component.ts:13 ~ ProductsManagerComponent ~ products:", this.products)
+  console.log("🚀 ~ file: products-manager.component.ts:15 ~ ProductsManagerComponent ~ products_observer:", this.products_observer)
     if (this.products.length !== this.products_observer.length)
       return true;
     else {

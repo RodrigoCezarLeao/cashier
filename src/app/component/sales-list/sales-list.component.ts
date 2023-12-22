@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { deleteAndSaveSales, getGroupedSalesIds, getSales } from 'src/app/helpers/sale';
 import { product } from 'src/app/interfaces/product';
 import { sales } from 'src/app/interfaces/sales';
 import { ModalReceiptComponent } from '../modal-receipt/modal-receipt.component';
@@ -33,23 +32,27 @@ export class SalesListComponent {
   }
 
   aggroupSalesList(){
-    let dateIds = Array.from(new Set(this.salesList.map(x => x.idDate))).sort().reverse();
-    let aux = [];
+    if (this.salesList){
 
-    for(let dateId of dateIds){
-      const salesInDateId = this.salesList.filter(x => x.idDate === dateId);
-      if (salesInDateId.length > 0)
-        aux.push(salesInDateId);
+      // TO-DO: erro quando lista vazia
+      let dateIds = Array.from(new Set(this.salesList.map(x => x.idDate))).sort().reverse();
+      let aux = [];
+  
+      for(let dateId of dateIds){
+        const salesInDateId = this.salesList.filter(x => x.idDate === dateId);
+        if (salesInDateId.length > 0)
+          aux.push(salesInDateId);
+      }
+  
+      this.salesListAggrouped = aux;
+  
+      //getTotalSaleValue()
+      let total = 0;
+      for(let sale of this.salesList){
+        total += (getProductPrice(sale.productId, this.products) ?? 0) * sale.amount;
+      }
+      this.totalCashierDay = total.toFixed(2);    
     }
-
-    this.salesListAggrouped = aux;
-
-    //getTotalSaleValue()
-    let total = 0;
-    for(let sale of this.salesList){
-      total += (getProductPrice(sale.productId, this.products) ?? 0) * sale.amount;
-    }
-    this.totalCashierDay = total.toFixed(2);    
   }
 
 

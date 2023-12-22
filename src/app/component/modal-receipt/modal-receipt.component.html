@@ -1,6 +1,6 @@
 <div class="container">
-    <span class="title">Data: {{formatDate(sales[0].idDate)}}</span>
-    <span class="title">Hora: {{formatHour(sales[0].idDate)}}</span>
+    <!-- <span class="title">Data: {{formatDate(sales[0].idDate)}}</span>
+    <span class="title">Hora: {{formatHour(sales[0].idDate)}}</span> -->
 
     <table>
         <tr>
@@ -19,8 +19,9 @@
         </tr>
 
         <tr>
-            <td colspan="3">Total</td>
-            <td>{{getTotalSaleValue()}}</td>
+            <td colspan="2"><i>{{formatDate(sales[0].idDate)}} &nbsp; - &nbsp; {{formatHour(sales[0].idDate)}}</i></td>            
+            <td><b><i>Total</i></b></td>
+            <td><b><i>{{getTotalSaleValue()}}</i></b></td>
         </tr>
         
     </table>

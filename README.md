@@ -14,5 +14,8 @@ NodeJS - 18.10.0 +
 
 ## TODO
 - translate
-- refactor ids and structure
-- observer
+- localStorage
+
+- Liberar botão 'atualizar' ao trocar nome ou preço de produto ao invés de só habilitar quando adicionar produto novo.
+- Erro de lista vazia 'sales-list'
+- Bloquear exclusão de produtos que já possuem registro em vendas.
