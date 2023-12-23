@@ -21,7 +21,7 @@ export class SalesListComponent {
   products: product[] = [];
   
   constructor(public dialog: MatDialog, private hubService: HubService) {
-    this.hubService.getSales().subscribe(sales => {      
+    this.hubService.getSales().subscribe(sales => {
       this.salesList = sales;
     });
     this.hubService.getProducts().subscribe(products => {
