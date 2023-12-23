@@ -23,12 +23,13 @@ export class SalesListComponent {
   constructor(public dialog: MatDialog, private hubService: HubService) {
     this.hubService.getSales().subscribe(sales => {      
       this.salesList = sales;
+      this.aggroupSalesList();
     });
     this.hubService.getProducts().subscribe(products => {
       this.products = products;
     });
 
-    this.aggroupSalesList();
+    // this.aggroupSalesList();
   }
 
   aggroupSalesList(){

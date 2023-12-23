@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { product } from 'src/app/interfaces/product';
 import { emptySale, sales } from 'src/app/interfaces/sales';
 import { Inject } from '@angular/core';
@@ -17,7 +17,7 @@ export class ModalReceiptComponent {
   @Input() sales: sales[] = [];
   products: product[] = [];  
   
-  constructor(private hubService: HubService){
+  constructor(private hubService: HubService, private host: ElementRef<HTMLElement>){
     this.hubService.getProducts().subscribe(products => {      
       this.products = products;
     });
@@ -47,6 +47,13 @@ export class ModalReceiptComponent {
       total += (getProductPrice(sale.productId, this.products) ?? 0) * sale.amount;
     }
     return total.toFixed(2);
+  }
+
+  deleteSales(){
+    if(prompt(`Para deletar a venda feita em '${this.sales[0].idDate}' de valor total = R\$${this.getTotalSaleValue()}, digite 'deletar'`) === 'deletar'){
+      this.hubService.deleteSales(this.sales);
+      // this.host.nativeElement.remove();
+    }
   }
 
 }

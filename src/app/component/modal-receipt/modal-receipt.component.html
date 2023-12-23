@@ -19,7 +19,8 @@
         </tr>
 
         <tr>
-            <td colspan="2"><i>{{formatDate(sales[0].idDate)}} &nbsp; - &nbsp; {{formatHour(sales[0].idDate)}}</i></td>            
+            <td><button (click)="deleteSales()">Excluir</button></td>
+            <td><i>{{formatDate(sales[0].idDate)}} &nbsp; - &nbsp; {{formatHour(sales[0].idDate)}}</i></td>
             <td><b><i>Total</i></b></td>
             <td><b><i>{{getTotalSaleValue()}}</i></b></td>
         </tr>

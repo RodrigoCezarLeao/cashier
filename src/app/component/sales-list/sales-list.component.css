@@ -4,6 +4,7 @@ div.saleCard {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    border-bottom: 1px solid black;
 }
 
 div.saleCard span.title {
