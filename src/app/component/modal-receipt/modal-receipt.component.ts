@@ -18,7 +18,7 @@ export class ModalReceiptComponent {
   products: product[] = [];  
   
   constructor(private hubService: HubService, private host: ElementRef<HTMLElement>){
-    this.hubService.getProducts().subscribe(products => {      
+    this.hubService.getProducts().subscribe(products => {
       this.products = products;
     });
   }
@@ -52,7 +52,9 @@ export class ModalReceiptComponent {
   deleteSales(){
     if(prompt(`Para deletar a venda feita em '${this.sales[0].idDate}' de valor total = R\$${this.getTotalSaleValue()}, digite 'deletar'`) === 'deletar'){
       this.hubService.deleteSales(this.sales);
+      // Resolver problema de Notify do observer
       // this.host.nativeElement.remove();
+      window.location.reload();
     }
   }
 

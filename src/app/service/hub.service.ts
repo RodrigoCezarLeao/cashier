@@ -32,6 +32,11 @@ export class HubService {
     saveCacheProducts(this.products_list);
   }
 
+  deleteProduct(product: product){
+    this.products_list = this.products_list.filter(x => x.id !== product.id);
+    saveCacheProducts(this.products_list);
+  }
+
   getSales() {
     const sales = of(this.sales_list);
     return sales;

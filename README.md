@@ -18,6 +18,5 @@ NodeJS - 18.10.0 +
 
 - Liberar botão 'atualizar' ao trocar nome ou preço de produto ao invés de só habilitar quando adicionar produto novo - OK.
 - Excluir venda - OK.
-- Resolver notify exclusão venda.
 - Bloquear exclusão de produtos que já possuem registro em vendas.
-- Erro de lista vazia 'sales-list'
+- Resolver notify exclusão venda.

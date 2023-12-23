@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { getCachedProducts } from 'src/app/helpers/products';
 import { createEmptyProduct, emptyProduct, product } from 'src/app/interfaces/product';
+import { sales } from 'src/app/interfaces/sales';
 import { HubService } from 'src/app/service/hub.service';
 
 
@@ -11,10 +12,14 @@ import { HubService } from 'src/app/service/hub.service';
 })
 export class ProductsManagerComponent {
   products: product[] = [];
+  salesList: sales[] = [];
 
   constructor(private hubService: HubService) {
     this.hubService.getProducts().subscribe(products => {
       this.products = products;
+    });
+    this.hubService.getSales().subscribe(sales => {      
+      this.salesList = sales;
     });
   }
   
@@ -42,6 +47,20 @@ export class ProductsManagerComponent {
 
       return false;
     }    
+  }
+
+  deleteProduct(prodId: string){
+    let prod = this.products.find(x => x.id === prodId);
+    if(prod && prompt(`Para deletar o produto '${prod?.name}', digite 'deletar'`) === 'deletar'){
+      if (this.salesList.find(x => x.productId === prodId))
+        alert("Não é possível deletar o produto pois já existe uma venda feita com ele. Exclua todas as vendas desse produto para depois deletá-lo.");
+      else{
+        this.hubService.deleteProduct(prod);
+        // Resolver problema de Notify do observer
+        // this.host.nativeElement.remove();
+        window.location.reload();
+      }
+    }
   }
 
 }

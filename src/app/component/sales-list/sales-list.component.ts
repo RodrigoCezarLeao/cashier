@@ -23,19 +23,16 @@ export class SalesListComponent {
   constructor(public dialog: MatDialog, private hubService: HubService) {
     this.hubService.getSales().subscribe(sales => {      
       this.salesList = sales;
-      this.aggroupSalesList();
     });
     this.hubService.getProducts().subscribe(products => {
       this.products = products;
     });
 
-    // this.aggroupSalesList();
+    this.aggroupSalesList();
   }
 
   aggroupSalesList(){
     if (this.salesList){
-
-      // TO-DO: erro quando lista vazia
       let dateIds = Array.from(new Set(this.salesList.map(x => x.idDate))).sort().reverse();
       let aux = [];
   
@@ -46,8 +43,7 @@ export class SalesListComponent {
       }
   
       this.salesListAggrouped = aux;
-  
-      //getTotalSaleValue()
+      
       let total = 0;
       for(let sale of this.salesList){
         total += (getProductPrice(sale.productId, this.products) ?? 0) * sale.amount;
