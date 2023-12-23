@@ -52,7 +52,7 @@ export class ModalReceiptComponent {
   deleteSales(){
     if(prompt(`Para deletar a venda feita em '${this.sales[0].idDate}' de valor total = R\$${this.getTotalSaleValue()}, digite 'deletar'`) === 'deletar'){
       this.hubService.deleteSales(this.sales);
-      window.location.reload();
+      this.hubService.notifyArgs('sales_event', this.sales);
     }
   }
 
