@@ -29,6 +29,11 @@ export class SalesListComponent {
     });
 
     this.aggroupSalesList();
+
+    this.hubService.subscribe("sales_event", (args: any) => {
+      this.salesList = this.salesList.filter(x => x.idDate !== args?.[0]?.idDate);
+      this.aggroupSalesList();
+    });
   }
 
   aggroupSalesList(){

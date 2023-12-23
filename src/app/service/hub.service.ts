@@ -11,10 +11,33 @@ import { getCachedSales, saveCacheSales } from '../helpers/sale';
 export class HubService {
   products_list: product[] = [];
   sales_list: sales[] = [];
+
+  sales_events: any[] = [];
   
   constructor() { 
     this.products_list = getCachedProducts();
     this.sales_list = getCachedSales();
+  }
+
+  subscribe(event: string, f: Function){
+    if (event === "sales_event"){
+      this.sales_events.push(f);
+    }
+  }
+
+  notify(event: string){
+    if (event === "sales_event"){
+      for(let f of this.sales_events){
+        f();
+      }
+    }
+  }
+  notifyArgs(event: string, args: any){
+    if (event === "sales_event"){
+      for(let f of this.sales_events){
+        f(args);
+      }
+    }
   }
 
   getProducts(){
