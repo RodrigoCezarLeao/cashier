@@ -49,5 +49,11 @@ export class HubService {
 
   editSales(sales: sales[]){
     this.sales_list = sales;
+    saveCacheSales(this.sales_list);
+  }
+
+  deleteSales(sales: sales[]){
+    this.sales_list = this.sales_list.filter(x => x.idDate !== sales?.[0]?.idDate);
+    this.editSales(this.sales_list);
   }
 }
