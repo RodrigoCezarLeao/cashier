@@ -2,7 +2,7 @@ import { sales } from "../interfaces/sales"
 
 const CACHE_KEY = "sales-cashier";
 
-export const getCachedSales = () => {
+export const getCachedSales = (): sales[] => {
     return JSON.parse(localStorage.getItem(CACHE_KEY) ?? "[]");
 }
 

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { product } from 'src/app/interfaces/product';
 import { createEmptySale, emptySale, sales } from 'src/app/interfaces/sales';
-import { HubService } from 'src/app/service/hub.service';
+import { ProductService } from 'src/app/service/product.service';
+import { SaleService } from 'src/app/service/sale.service';
 
 @Component({
   selector: 'app-sales-manager',
@@ -13,10 +14,8 @@ export class SalesManagerComponent {
   cashierProducts: sales[] = [];
   totalCashier = 0;
   
-  constructor(private hubService: HubService){
-    this.hubService.getProducts().subscribe(products => {      
-      this.products = products;
-    });
+  constructor(private productService: ProductService, private saleService: SaleService){
+    this.products = this.productService.getProducts();
   }
   
   addRecord(){
@@ -67,7 +66,7 @@ export class SalesManagerComponent {
       }
     }
     
-    this.hubService.addSales(agg_records);
+    this.saleService.addSales(agg_records);
     alert("Venda realizada com sucesso!");
 
     // Reset screen

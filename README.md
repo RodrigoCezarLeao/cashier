@@ -14,11 +14,6 @@ NodeJS - 18.10.0 +
 
 ## TODO
 - translate
-- localStorage
 
-- Liberar botão 'atualizar' ao trocar nome ou preço de produto ao invés de só habilitar quando adicionar produto novo - OK.
-- Excluir venda - OK.
-- Bloquear exclusão de produtos que já possuem registro em vendas.
-- Resolver notify exclusão venda.
 
 JSON.stringfy(aux, null, 2)

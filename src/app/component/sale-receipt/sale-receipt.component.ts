@@ -1,26 +1,25 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { product } from 'src/app/interfaces/product';
-import { emptySale, sales } from 'src/app/interfaces/sales';
-import { Inject } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog'
+import { sales } from 'src/app/interfaces/sales';
 import { formatDate, formatHour } from 'src/app/helpers/general';
 import { HubService } from 'src/app/service/hub.service';
 import { getProductName, getProductPrice } from 'src/app/helpers/products';
+import { ProductService } from 'src/app/service/product.service';
+import { SaleService } from 'src/app/service/sale.service';
+import { ADD_SALE_EVENT } from 'src/app/events';
 
 @Component({
-  selector: 'app-modal-receipt',
-  templateUrl: './modal-receipt.component.html',
-  styleUrls: ['./modal-receipt.component.css']
+  selector: 'app-sale-receipt',
+  templateUrl: './sale-receipt.component.html',
+  styleUrls: ['./sale-receipt.component.css']
 })
-export class ModalReceiptComponent {
+export class SaleReceiptComponent {
 
   @Input() sales: sales[] = [];
   products: product[] = [];  
   
-  constructor(private hubService: HubService){
-    this.hubService.getProducts().subscribe(products => {
-      this.products = products;
-    });
+  constructor(private hubService: HubService, private productService: ProductService, private saleService: SaleService){
+    this.products = this.productService.getProducts();
   }
   
   formatHour(arg0: string) {
@@ -51,8 +50,8 @@ export class ModalReceiptComponent {
 
   deleteSales(){
     if(prompt(`Para deletar a venda feita em '${this.sales[0].idDate}' de valor total = R\$${this.getTotalSaleValue()}, digite 'deletar'`) === 'deletar'){
-      this.hubService.deleteSales(this.sales);
-      this.hubService.notifyArgs('sales_event', this.sales);
+      this.saleService.deleteSales(this.sales);
+      this.hubService.notifyArgs(ADD_SALE_EVENT, this.sales);
     }
   }
 

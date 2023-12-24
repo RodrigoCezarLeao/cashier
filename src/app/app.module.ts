@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { SalesManagerComponent } from './component/sales-manager/sales-manager.component';
 import { SalesListComponent } from './component/sales-list/sales-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalReceiptComponent } from './component/modal-receipt/modal-receipt.component';
+import { SaleReceiptComponent } from './component/sale-receipt/sale-receipt.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 
@@ -17,7 +17,7 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
     ProductsManagerComponent,
     SalesManagerComponent,
     SalesListComponent,
-    ModalReceiptComponent,
+    SaleReceiptComponent,
     NavBarComponent
   ],
   imports: [
