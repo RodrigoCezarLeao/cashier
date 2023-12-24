@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { product } from 'src/app/interfaces/product';
 import { sales } from 'src/app/interfaces/sales';
-import { ModalReceiptComponent } from '../modal-receipt/modal-receipt.component';
 import { HubService } from 'src/app/service/hub.service';
 import { getProductPrice } from 'src/app/helpers/products';
+import { ProductService } from 'src/app/service/product.service';
+import { SaleService } from 'src/app/service/sale.service';
+import { ADD_SALE_EVENT } from 'src/app/events';
 
 
 
@@ -20,17 +22,12 @@ export class SalesListComponent {
   totalCashierDay = "";
   products: product[] = [];
   
-  constructor(public dialog: MatDialog, private hubService: HubService) {
-    this.hubService.getSales().subscribe(sales => {
-      this.salesList = sales;
-    });
-    this.hubService.getProducts().subscribe(products => {
-      this.products = products;
-    });
-
+  constructor(public dialog: MatDialog, private hubService: HubService, private productService: ProductService, private saleService: SaleService) {
+    this.salesList = saleService.getSales();
+    this.products = productService.getProducts();
     this.aggroupSalesList();
 
-    this.hubService.subscribe("sales_event", (args: any) => {
+    this.hubService.subscribe(ADD_SALE_EVENT, (args: any) => {
       this.salesList = this.salesList.filter(x => x.idDate !== args?.[0]?.idDate);
       this.aggroupSalesList();
     });

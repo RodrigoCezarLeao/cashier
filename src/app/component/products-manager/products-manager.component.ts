@@ -3,6 +3,8 @@ import { getCachedProducts } from 'src/app/helpers/products';
 import { createEmptyProduct, emptyProduct, product } from 'src/app/interfaces/product';
 import { sales } from 'src/app/interfaces/sales';
 import { HubService } from 'src/app/service/hub.service';
+import { ProductService } from 'src/app/service/product.service';
+import { SaleService } from 'src/app/service/sale.service';
 
 
 @Component({
@@ -14,13 +16,9 @@ export class ProductsManagerComponent {
   products: product[] = [];
   salesList: sales[] = [];
 
-  constructor(private hubService: HubService){
-    this.hubService.getProducts().subscribe(products => {
-      this.products = products;
-    });
-    this.hubService.getSales().subscribe(sales => {      
-      this.salesList = sales;
-    });
+  constructor(private hubService: HubService, private productService: ProductService, private saleService: SaleService){    
+    this.salesList = saleService.getSales();
+    this.products = productService.getProducts();
   }
   
 
@@ -29,7 +27,7 @@ export class ProductsManagerComponent {
   }
 
   update(){
-    this.hubService.editProducts(this.products);
+    this.productService.editProducts(this.products);
     alert("Produtos atualizados com sucesso!");
   }
 
