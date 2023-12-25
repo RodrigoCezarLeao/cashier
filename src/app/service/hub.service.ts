@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { product } from '../interfaces/product';
-import { sales } from '../interfaces/sales';
-import { getCachedProducts, saveCacheProducts } from '../helpers/products';
-import { getCachedSales, saveCacheSales } from '../helpers/sale';
 import { HubEvent } from '../events';
 
 @Injectable({
