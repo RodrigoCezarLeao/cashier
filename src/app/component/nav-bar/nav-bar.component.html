@@ -1,5 +1,8 @@
 <div id="container">
-    <a routerLink="/" routerLinkActive="selected">Vendas</a>
-    <a routerLink="/products" routerLinkActive="selected">Produtos</a>
-    <a routerLink="/cashier" routerLinkActive="selected">Caixa</a>
+    <a routerLink="/" routerLinkActive="selected">{{translate("nav_bar_sales")}}</a>
+    <a routerLink="/products" routerLinkActive="selected">{{translate("nav_bar_products")}}</a>
+    <a routerLink="/cashier" routerLinkActive="selected">{{translate("nav_bar_cashier")}}</a>
+
+    <button (click)="changeLanguage('pt-br')">PT</button>
+    <button (click)="changeLanguage('en-us')">EN</button>    
 </div>
