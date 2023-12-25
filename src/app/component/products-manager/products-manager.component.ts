@@ -5,6 +5,7 @@ import { sales } from 'src/app/interfaces/sales';
 import { HubService } from 'src/app/service/hub.service';
 import { ProductService } from 'src/app/service/product.service';
 import { SaleService } from 'src/app/service/sale.service';
+import { TranslateService } from 'src/app/service/translate.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ProductsManagerComponent {
   products: product[] = [];
   salesList: sales[] = [];
 
-  constructor(private hubService: HubService, private productService: ProductService, private saleService: SaleService){    
+  constructor(private hubService: HubService, private productService: ProductService, private saleService: SaleService, public translateService: TranslateService){
     this.salesList = saleService.getSales();
     this.products = productService.getProducts();
   }
@@ -28,7 +29,7 @@ export class ProductsManagerComponent {
 
   update(){
     this.productService.editProducts(this.products);
-    alert("Produtos atualizados com sucesso!");
+    alert(this.translateService.translate('alert-products-updated'));
   }
 
   checkIfUpdateIsNeeded(){
@@ -49,9 +50,10 @@ export class ProductsManagerComponent {
 
   deleteProduct(prodId: string){    
     let prod = this.products.find(x => x.id === prodId);
-    if(prod && prompt(`Para deletar o produto '${prod?.name}', digite 'deletar'`) === 'deletar'){
+    let userAnswer = prompt(this.translateService.translateWithParams('alert-product-confirm-product-delete', [prod?.name ?? ""]));
+    if(prod && (userAnswer === 'deletar' || userAnswer === 'delete')){
       if (this.salesList.find(x => x.productId === prodId))
-        alert("Não é possível deletar o produto pois já existe uma venda feita com ele. Exclua todas as vendas desse produto para depois deletá-lo.");
+        alert(this.translateService.translate('alert-product-already-selled'));
       else{
         this.products = this.products.filter(x => x.id !== prodId);        
       }

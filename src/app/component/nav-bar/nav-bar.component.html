@@ -1,8 +1,10 @@
 <div id="container">
-    <a routerLink="/" routerLinkActive="selected">{{translate("nav_bar_sales")}}</a>
-    <a routerLink="/products" routerLinkActive="selected">{{translate("nav_bar_products")}}</a>
-    <a routerLink="/cashier" routerLinkActive="selected">{{translate("nav_bar_cashier")}}</a>
-
-    <button (click)="changeLanguage('pt-br')">PT</button>
-    <button (click)="changeLanguage('en-us')">EN</button>    
+    <a routerLink="/" routerLinkActive="selected">{{translateService.translate("nav_bar_sales")}}</a>
+    <a routerLink="/products" routerLinkActive="selected">{{translateService.translate("nav_bar_products")}}</a>
+    <a routerLink="/cashier" routerLinkActive="selected">{{translateService.translate("nav_bar_cashier")}}</a>
+    
+    <div id="flags">
+        <img class="language" (click)="translateService.changeLanguage('pt-br')" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/1280px-Flag_of_Brazil.svg.png"/>
+        <img class="language" (click)="translateService.changeLanguage('en-us')" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1280px-Flag_of_the_United_States.svg.png"/>
+    </div>
 </div>

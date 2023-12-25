@@ -3,6 +3,7 @@ import { product } from 'src/app/interfaces/product';
 import { createEmptySale, emptySale, sales } from 'src/app/interfaces/sales';
 import { ProductService } from 'src/app/service/product.service';
 import { SaleService } from 'src/app/service/sale.service';
+import { TranslateService } from 'src/app/service/translate.service';
 
 @Component({
   selector: 'app-sales-manager',
@@ -14,7 +15,7 @@ export class SalesManagerComponent {
   cashierProducts: sales[] = [];
   totalCashier = 0;
   
-  constructor(private productService: ProductService, private saleService: SaleService){
+  constructor(private productService: ProductService, private saleService: SaleService, public translateService: TranslateService){
     this.products = this.productService.getProducts();
   }
   
@@ -67,7 +68,7 @@ export class SalesManagerComponent {
     }
     
     this.saleService.addSales(agg_records);
-    alert("Venda realizada com sucesso!");
+    alert(this.translateService.translate('sales-manager-sale-concluded'));
 
     // Reset screen
     this.cashierProducts = [];

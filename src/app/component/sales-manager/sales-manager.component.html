@@ -1,14 +1,14 @@
 <div id="container">
-    <button (click)="addRecord()">Adicionar Registro</button>
+    <button (click)="addRecord()">{{translateService.translate('sales-manager-add-record')}}</button>
 
 
-    <h3>Total R$: {{totalCashier.toFixed(2)}}</h3>
+    <h3>{{translateService.translate('sales-manager-total-value')}}{{totalCashier.toFixed(2)}}</h3>
 
     <table>
         <tr>
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Preço</th>
+            <th>{{translateService.translate('sale-receipt-table-product')}}</th>
+            <th>{{translateService.translate('sale-receipt-table-amount')}}</th>
+            <th>{{translateService.translate('sale-receipt-table-price-only')}}</th>
         </tr>
         <tr *ngFor="let cash of cashierProducts">
             <td>                                            
@@ -25,5 +25,5 @@
 
     
 
-    <button (click)="addNewSale()" [disabled]="!checkIfRecordCanBeSaved()">Registrar Venda</button>    
+    <button (click)="addNewSale()" [disabled]="!checkIfRecordCanBeSaved()">{{translateService.translate('sales-manager-save-record')}}</button>    
 </div>

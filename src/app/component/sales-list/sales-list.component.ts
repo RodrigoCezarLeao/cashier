@@ -7,6 +7,7 @@ import { getProductPrice } from 'src/app/helpers/products';
 import { ProductService } from 'src/app/service/product.service';
 import { SaleService } from 'src/app/service/sale.service';
 import { ADD_SALE_EVENT } from 'src/app/events';
+import { TranslateService } from 'src/app/service/translate.service';
 
 
 
@@ -22,7 +23,7 @@ export class SalesListComponent {
   totalCashierDay = "";
   products: product[] = [];
   
-  constructor(public dialog: MatDialog, private hubService: HubService, private productService: ProductService, private saleService: SaleService) {
+  constructor(public dialog: MatDialog, private hubService: HubService, private productService: ProductService, private saleService: SaleService, public translateService: TranslateService) {
     this.salesList = saleService.getSales();
     this.products = productService.getProducts();
     this.aggroupSalesList();
