@@ -1,12 +1,13 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { product } from 'src/app/interfaces/product';
 import { sales } from 'src/app/interfaces/sales';
-import { formatDate, formatHour } from 'src/app/helpers/general';
+import { formatDate, formatHour, formatTimestamp } from 'src/app/helpers/general';
 import { HubService } from 'src/app/service/hub.service';
 import { getProductName, getProductPrice } from 'src/app/helpers/products';
 import { ProductService } from 'src/app/service/product.service';
 import { SaleService } from 'src/app/service/sale.service';
 import { ADD_SALE_EVENT } from 'src/app/events';
+import { TranslateService } from 'src/app/service/translate.service';
 
 @Component({
   selector: 'app-sale-receipt',
@@ -18,7 +19,7 @@ export class SaleReceiptComponent {
   @Input() sales: sales[] = [];
   products: product[] = [];  
   
-  constructor(private hubService: HubService, private productService: ProductService, private saleService: SaleService){
+  constructor(private hubService: HubService, private productService: ProductService, private saleService: SaleService, public translateService: TranslateService){
     this.products = this.productService.getProducts();
   }
   
@@ -49,7 +50,8 @@ export class SaleReceiptComponent {
   }
 
   deleteSales(){
-    if(prompt(`Para deletar a venda feita em '${this.sales[0].idDate}' de valor total = R\$${this.getTotalSaleValue()}, digite 'deletar'`) === 'deletar'){
+    let userAnswer = prompt(this.translateService.translateWithParams('alert-sale-confirm-delete', [formatTimestamp(this.sales[0].idDate), this.getTotalSaleValue()]));
+    if( userAnswer === 'deletar' || userAnswer === 'delete'){
       this.saleService.deleteSales(this.sales);
       this.hubService.notifyArgs(ADD_SALE_EVENT, this.sales);
     }

@@ -1,11 +1,11 @@
 <div id="container">    
 
-    <button (click)="addProduct()">Adicionar Produto</button>
+    <button (click)="addProduct()">{{translateService.translate('products-manager-add-products')}}</button>
 
     <table>
         <tr>
-            <th>Descrição</th>
-            <th>Valor</th>
+            <th>{{translateService.translate('products-manager-table-description')}}</th>
+            <th>{{translateService.translate('products-manager-table-value')}}</th>
         </tr>
         <tr *ngFor="let prod of products">
             <td><input type="text" [(ngModel)]="prod.name"/></td>
@@ -14,6 +14,5 @@
         </tr>
     </table>        
 
-    <button (click)='update()' [disabled]="!checkIfUpdateIsNeeded()">Atualizar</button>
-    
+    <button (click)='update()' [disabled]="!checkIfUpdateIsNeeded()">{{translateService.translate('products-manager-button-update')}}</button>
 </div>

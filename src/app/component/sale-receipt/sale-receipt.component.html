@@ -1,10 +1,10 @@
 <div class="container">
     <table>
         <tr>
-            <th>Qtd</th>
-            <th>Produto</th>
-            <th>Preço Unit.</th>
-            <th>Total</th>
+            <th>{{translateService.translate('sale-receipt-table-amount')}}</th>
+            <th>{{translateService.translate('sale-receipt-table-product')}}</th>
+            <th>{{translateService.translate('sale-receipt-table-price')}}</th>
+            <th>{{translateService.translate('sale-receipt-table-total')}}</th>
         </tr>
         
         
@@ -16,9 +16,9 @@
         </tr>
 
         <tr>
-            <td><button (click)="deleteSales()">Excluir</button></td>
+            <td><button (click)="deleteSales()">{{translateService.translate('sale-receipt-button-delete')}}</button></td>
             <td><i>{{formatDate(sales[0].idDate)}} &nbsp; - &nbsp; {{formatHour(sales[0].idDate)}}</i></td>
-            <td><b><i>Total</i></b></td>
+            <td><b><i>{{translateService.translate('sale-receipt-table-total')}}</i></b></td>
             <td><b><i>{{getTotalSaleValue()}}</i></b></td>
         </tr>
         

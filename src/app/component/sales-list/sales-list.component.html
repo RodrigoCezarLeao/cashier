@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <h3>Total Venda: R${{totalCashierDay}}</h3>
+        <h3>{{translateService.translate('sales-list-total-sales')}}{{totalCashierDay}}</h3>
 
         <div *ngFor="let sale of salesListAggrouped" class="saleCard">
             <app-sale-receipt [sales]="sale"></app-sale-receipt>            
