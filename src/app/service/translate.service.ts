@@ -49,6 +49,10 @@ export class TranslateService {
       "pt-br": "Caixa",
       "en-us": "Cashier",
     },
+    "nav_bar_reset": {
+      "pt-br": "Resetar",
+      "en-us": "Reset",
+    },
     "products-manager-add-products": {
       "pt-br": "Adicionar Produto",
       "en-us": "Add Product",
@@ -124,6 +128,10 @@ export class TranslateService {
     "alert-sale-confirm-delete": {
       "pt-br": "Para deletar a venda feita em '@var' de valor total = R$@var, digite 'deletar'.",
       "en-us": "To delete sale concluded in '@var' with total price = $@var, type 'delete'.",
+    },
+    "alert_reset_all_app": {
+      "pt-br": "Digite 'deletar' para excluir todos os registros do site.",
+      "en-us": "To delete all records, type 'delete'.",
     },
     "": {
       "pt-br": "",

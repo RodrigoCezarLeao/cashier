@@ -12,7 +12,7 @@ export const getProductPrice = (prodId: string, products: product[]) => {
 
 
 export const getCachedProducts = () => {
-    return JSON.parse(localStorage.getItem(CACHE_KEY) ?? "{}");
+    return JSON.parse(localStorage.getItem(CACHE_KEY) ?? "[]");
 }
 
 export const saveCacheProducts = (products: product[]) => {
