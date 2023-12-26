@@ -1,5 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+/* Paleta de cores
+--light-color: #FEEBCA;
+--olive-color: #4D4B30;
+--green-color: #908660;
+--light-2-color: #F4CCA6;
+--mostard-color: #DAA38B;
+--wine-color: #482216; */
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #FEEBCA}
 

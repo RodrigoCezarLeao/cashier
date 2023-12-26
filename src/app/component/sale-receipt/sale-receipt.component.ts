@@ -50,7 +50,7 @@ export class SaleReceiptComponent {
   }
 
   deleteSales(){
-    let userAnswer = prompt(this.translateService.translateWithParams('alert-sale-confirm-delete', [formatTimestamp(this.sales[0].idDate), this.getTotalSaleValue()]));
+    let userAnswer = prompt(this.translateService.translateWithParams('alert-sale-confirm-delete', [formatTimestamp(this.sales[0].idDate), this.getTotalSaleValue()]))?.toLowerCase();
     if( userAnswer === 'deletar' || userAnswer === 'delete'){
       this.saleService.deleteSales(this.sales);
       this.hubService.notifyArgs(ADD_SALE_EVENT, this.sales);

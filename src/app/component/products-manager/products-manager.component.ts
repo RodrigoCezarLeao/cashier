@@ -35,6 +35,9 @@ export class ProductsManagerComponent {
   checkIfUpdateIsNeeded(){
     const cachedProducts = getCachedProducts();
     
+    if (this.products.length === 0)
+      return true;
+
     if (this.products.length !== cachedProducts.length)
       return true;
     else {
@@ -50,7 +53,7 @@ export class ProductsManagerComponent {
 
   deleteProduct(prodId: string){    
     let prod = this.products.find(x => x.id === prodId);
-    let userAnswer = prompt(this.translateService.translateWithParams('alert-product-confirm-product-delete', [prod?.name ?? ""]));
+    let userAnswer = prompt(this.translateService.translateWithParams('alert-product-confirm-product-delete', [prod?.name ?? ""]))?.toLowerCase();
     if(prod && (userAnswer === 'deletar' || userAnswer === 'delete')){
       if (this.salesList.find(x => x.productId === prodId))
         alert(this.translateService.translate('alert-product-already-selled'));

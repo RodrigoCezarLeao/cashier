@@ -16,6 +16,7 @@ div#container a {
     border-radius: 10px;
     color: white;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 div#container a:hover { 
