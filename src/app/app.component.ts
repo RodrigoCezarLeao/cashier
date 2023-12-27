@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { TranslateService } from './service/translate.service';
+import { Title } from '@angular/platform-browser';
+import { HubService } from './service/hub.service';
+import { CHANGE_LANGUAGE } from './events';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +10,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'cashier';
+  // Title - angular service for title
+  constructor(public translateService: TranslateService, private titleService: Title, private hubService: HubService){
+    titleService.setTitle(translateService.translate('title'));
+    hubService.subscribe(CHANGE_LANGUAGE, () => titleService.setTitle(translateService.translate('title')));
+  }
 
   deleteAll(){
     if (confirm("Deseja excluir todos os registros?")){
