@@ -133,6 +133,10 @@ export class TranslateService {
       "pt-br": "Digite 'deletar' para excluir todos os registros do site.",
       "en-us": "To delete all records, type 'delete'.",
     },
+    "title": {
+      "pt-br": "Operador de Caixa",
+      "en-us": "Cashier Operator",
+    },
     "": {
       "pt-br": "",
       "en-us": "",

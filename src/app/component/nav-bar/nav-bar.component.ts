@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CHANGE_LANGUAGE } from 'src/app/events';
+import { HubService } from 'src/app/service/hub.service';
 import { TranslateService } from 'src/app/service/translate.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { TranslateService } from 'src/app/service/translate.service';
 })
 export class NavBarComponent {
   
-  constructor(public translateService: TranslateService){}
+  constructor(public translateService: TranslateService, private hubService: HubService){}
 
   refreshCashier(){
     let userAnswer = prompt(this.translateService.translate('alert_reset_all_app'))?.toLowerCase();
@@ -17,6 +19,11 @@ export class NavBarComponent {
       localStorage.removeItem('sales-cashier');
       window.location.reload();
     }
+  }
+
+  changeLanguage(lang: string){
+    this.translateService.changeLanguage(lang);
+    this.hubService.notify(CHANGE_LANGUAGE);
   }
 
 }
